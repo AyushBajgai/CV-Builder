@@ -7,11 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CV Maker</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  </head>
+    <link rel="stylesheet" type="text/css" href="Styles/style.css" /> 
+
+</head>
   <body>
-    <div class="container-fluid bg-body-tertiary">
-        <h1 class="text-center mb-4">Make Candidate CV</h1>
-        <div class="container mb-5 bg-body">
+    <div class="container-fluid bg-success">
+        <div class="row pt-3">
+            <h1 class="text-center text-white mb-4">Normal C.V.</h1>
+        </div>
+        
+        <div class="container pb-5 bg-body ">
             <div class="row">
                 <div class="col-12">
                     <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
@@ -51,7 +56,7 @@
                                 </div>
                             </div>
     
-                            <div class="row mt-4 mb-2">    
+                            <div class="row mt-4">    
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <select class="form-select mt-4" name="gender" aria-label="Default select example">
                                         <option selected value="">Select Gender</option>
@@ -71,6 +76,27 @@
                                     <label for="exampleFormControlInput1">Weight</label>
                                     <input type="text" name="weight" class="form-control" value="<?php echo isset($_POST["weight"]) ? $_POST["weight"] : ''; ?>">
                                     <p class="text-danger"><?php if(isset($weightErr)) echo $weightErr; ?></p>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4 mb-2">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <select class="form-select" name="education" aria-label="Default select example">
+                                        <option selected value="">Education Qualification</option>
+                                        <option value="SLC Passed">SLC Passed</option>
+                                        <option value="Intermediate">Intermediate</option>
+                                        <option value="Bachelor Passed">Bachelor Passed</option>
+                                    </select>
+                                    <p class="text-danger"><?php if(isset($educationErr)) echo $educationErr; ?></p>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <select class="form-select" name="status" aria-label="Default select example">
+                                        <option selected value="">Maritial Status</option>
+                                        <option value="Married">Married</option>
+                                        <option value="Unmarried">Unmarried</option>
+                                    </select>
+                                    <p class="text-danger"><?php if(isset($statusErr)) echo $statusErr; ?></p>
                                 </div>
                             </div>
                         </fieldset>
@@ -147,48 +173,68 @@
                         <fieldset class="border p-2 mt-3">
                             <legend class="float-none w-auto p-1">Experience Details</legend>                        
                                 <div class="row mt-4 mb-2">    
-                                    <div class="col-lg-4 col-md-4 col-sm-12">
-                                        <label for="exampleFormControlInput1">Profession</label>
+                                    <div class="d-flex justify-content-center">
+                                        <label class="p-2">Worked as</label>
                                         <input type="text" name="profession" class="form-control" value="<?php echo isset($_POST["profession"]) ? $_POST["profession"] : ''; ?>">
-                                        <p class="text-danger"><?php if(isset($professionErr)) echo $professionErr; ?></p>
-                                    </div>
-        
-                                    <div class="col-lg-4 col-md-4 col-sm-12">
-                                        <label for="exampleFormControlInput1">Worked Destination</label>
+
+                                        <label class="p-2">at</label>
                                         <input type="text" name="work" class="form-control" value="<?php echo isset($_POST["work"]) ? $_POST["work"] : ''; ?>">
-                                        <p class="text-danger"><?php if(isset($workErr)) echo $workErr; ?></p>
-                                    </div>
-        
-                                    <div class="col-lg-4 col-md-4 col-sm-12">
-                                        <label for="exampleFormControlInput1">Years</label>
+ 
+                                        <label class="p-2">for</label>
                                         <input type="text" name="years" class="form-control" value="<?php echo isset($_POST["years"]) ? $_POST["years"] : ''; ?>">
-                                        <p class="text-danger"><?php if(isset($yearErr)) echo $yearErr; ?></p>
-                                    </div>
-                                </div>        
-                                
-                                <div class="row mt-4 mb-2">    
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <label for="exampleFormControlInput1">Working Address</label>
+   
+                                        <label class="p-2">years at</label>
                                         <input type="text" name="w_address" class="form-control" value="<?php echo isset($_POST["w_address"]) ? $_POST["w_address"] : ''; ?>">
-                                        <p class="text-danger"><?php if(isset($w_addressErr)) echo $w_addressErr; ?></p>
-                                    </div>
-        
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <label for="exampleFormControlInput1">Country</label>
+                   
+                                        <label class="p-2">in</label>
                                         <input type="text" name="country" class="form-control" value="<?php echo isset($_POST["country"]) ? $_POST["country"] : ''; ?>">
+                                                                          </div>
+                                    <div class="row mt-3">
+                                        <p class="text-danger"><?php if(isset($professionErr)) echo $professionErr; ?></p>
+                                        <p class="text-danger"><?php if(isset($workErr)) echo $workErr; ?></p>
+                                        <p class="text-danger"><?php if(isset($yearErr)) echo $yearErr; ?></p>
+                                        <p class="text-danger"><?php if(isset($w_addressErr)) echo $w_addressErr; ?></p>
                                         <p class="text-danger"><?php if(isset($countryErr)) echo $countryErr; ?></p>
                                     </div>
-                                </div>          
+
+
+                                </div>        
+
+                                <div class="row mt-5 mb-3">
+                                    <textarea id="w3review" name="extra" placeholder="Add extra experience" style="overflow:auto; height:150px; max-width:1250px; margin-left: 15px;"></textarea>
+                                </div>
                         </fieldset>
-                            <button type="submit" name="save" class="btn btn-primary mt-4 me-4">Save CV</button>
-                            <button type="submit" name="print" class="btn btn-success mt-4">Print CV</button>
+                            <button type="submit" name="save" class="btn btn-success mt-4 mb-3 me-4">Save CV</button>
                         
                         </form>
                 </div>
             </div>
         </div>
     </div>
-
+<?php include('footer.php'); ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
   </body>
 </html>
+
+<style>
+    input[type=text], input[type=date]{
+
+}
+
+legend{
+    font-weight: bold;
+}
+
+select{
+    border: 1px solid black;
+}
+
+.bg-body{
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.form-control:focus{border: 2px solid #5cb85c;  box-shadow: none; -webkit-box-shadow: none;} 
+.has-error .form-control:focus{box-shadow: none; -webkit-box-shadow: none;}
+
+</style>

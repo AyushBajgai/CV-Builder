@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $fname="";
 $fnameErr="";
 
@@ -13,7 +15,7 @@ function test_input($data)
 
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
-    //For Candidates
+   //For Candidates
     //First Name
     if(empty($_POST['fname'])){
         $fnameErr = "First name is empty";
@@ -72,7 +74,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $heightErr = "Height is empty";
     }else {
         $height = test_input($_POST['height']);
-        if(!preg_match("/^[0-9]+$/",$height)){
+        if(!preg_match("/^[0-9,.]+$/",$height)){
             $heightErr = "Enter numeric value";
           }
     }
@@ -87,6 +89,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
           }
         
     }
+
+    //Education
+    if(!empty($_POST['education'])) {
+        $education[] = test_input($_POST['education']);
+    } else {
+        $educationErr = 'Please select the education';
+    }
+
+    //Maritial Status
+    if(!empty($_POST['status'])) {
+        $status[] = test_input($_POST['status']);
+    } else {
+        $statusErr = 'Please select the maritial status';
+    }
+
 
     //For FATHER
     //First Name
@@ -151,11 +168,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     }
 
     //For PASSPORT
-    //First Name
+    //Passport Number
     if(empty($_POST['passport'])){
         $passportErr = "Passport number is empty";
     }else {
         $passport = test_input($_POST['passport']);
+        if(strlen($passport)< 6 || strlen($passport) > 12){
+            $passportErr = "Invalid passport length";
+        }
+        if(preg_match("/^[.]+$/",$passport)){
+            $passportErr = "Invalid passport number";
+          }
     }
 
     //Issue date
@@ -178,7 +201,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $professionErr = "Profession detail is empty";
     }else {
         $profession = test_input($_POST['profession']);
-        if(!preg_match("/^[a-zA-Z]+$/",$profession)){
+        if(!preg_match("/^[a-zA-Z\s]+$/",$profession)){
             $professionErr = "Only letters and space is allowed.";
           }
     }
@@ -188,7 +211,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $workErr = "Working address is empty";
     }else {
         $work = test_input($_POST['work']);
-        if(!preg_match("/^[a-zA-Z]+$/",$work)){
+        if(!preg_match("/^[a-zA-Z\s]+$/",$work)){
             $workErr = "Only letters and space is allowed.";
           }
     }
@@ -208,7 +231,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $w_addressErr = "Working address is empty";
     }else {
         $w_address = test_input($_POST['w_address']);
-        if(!preg_match("/^[a-zA-Z]+$/",$w_address)){
+        if(!preg_match("/^[a-zA-Z\s]+$/",$w_address)){
             $w_addressErr = "Only letters and space is allowed.";
           }
     }
@@ -218,20 +241,48 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $countryErr = "Country is empty";
     }else {
         $country = test_input($_POST['country']);
-        if(!preg_match("/^[a-zA-Z]+$/",$country)){
+        if(!preg_match("/^[a-zA-Z\s]+$/",$country)){
             $countryErr = "Only letters and space is allowed.";
           }
     }
 
- if(empty($fnameErr) && empty($mnameErr) && empty($lnameErr) && empty($addressErr) && empty($dobErr) && empty($genderErr) && empty($heightErr) && empty($weightErr) &&  empty($fa_nameErr) && empty($fa_middleErr) && empty($fa_lastErr) && empty($mo_nameErr) && empty($mo_middleErr) &&  empty($mo_lastErr) && empty($passportErr) &&  empty($issueErr) &&  empty($expiryErr) &&  empty($professionErr) &&  empty($workErr) &&  empty($yearErr) &&  empty($w_addressErr) &&  empty($countryErr)){
-    header("Location: output.php");
-    exit();
+ if(empty($fnameErr) && empty($mnameErr) && empty($lnameErr) && empty($educationErr) && empty($statusErr) && empty($addressErr) && empty($dobErr) && empty($genderErr) && empty($heightErr) && empty($weightErr) &&  empty($fa_nameErr) && empty($fa_middleErr) && empty($fa_lastErr) && empty($mo_nameErr) && empty($mo_middleErr) &&  empty($mo_lastErr) && empty($passportErr) &&  empty($issueErr) &&  empty($expiryErr) &&  empty($professionErr) &&  empty($workErr) &&  empty($yearErr) &&  empty($w_addressErr) &&  empty($countryErr)){
+
+    //Storing variables in the form of session
+    $_SESSION['fname'] = $_POST['fname'];
+    $_SESSION['mname'] = $_POST['mname'];
+    $_SESSION['lname'] = $_POST['lname'];
+    $_SESSION['address'] = $_POST['address'];
+    $_SESSION['dob'] = $_POST['dob'];
+    $_SESSION['gender'] = $_POST['gender'];
+    $_SESSION['height'] = $_POST['height'];
+    $_SESSION['weight'] = $_POST['weight'];
+    $_SESSION['education'] = $_POST['education'];
+    $_SESSION['status'] = $_POST['status'];
+    $_SESSION['fa_name'] = $_POST['fa_name'];
+    $_SESSION['fa_middle'] = $_POST['fa_middle'];
+    $_SESSION['fa_last'] = $_POST['fa_last'];
+    $_SESSION['mo_name'] = $_POST['mo_name'];
+    $_SESSION['mo_middle'] = $_POST['mo_middle'];
+    $_SESSION['mo_last'] = $_POST['mo_last'];
+    $_SESSION['passport'] = $_POST['passport'];
+    $_SESSION['issue'] = $_POST['issue'];
+    $_SESSION['expiry'] = $_POST['expiry'];
+    $_SESSION['profession'] = $_POST['profession'];
+    $_SESSION['work'] = $_POST['work'];
+    $_SESSION['years'] = $_POST['years'];
+    $_SESSION['w_address'] = $_POST['w_address'];
+    $_SESSION['country'] = $_POST['country'];
+    $_SESSION['extra'] = $_POST['extra'];
+
+    header("Location: newFpdf.php");
+exit();
  }
 
+ 
     
     
 
-    
 
 
 
